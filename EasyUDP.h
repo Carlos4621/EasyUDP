@@ -1,6 +1,7 @@
 #ifndef EASY_UDP_HEADER
 #define EASY_UDP_HEADER
 
+#include <utility>
 #include <boost/asio.hpp>
 
 class EasyUDP {
