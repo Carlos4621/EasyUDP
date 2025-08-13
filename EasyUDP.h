@@ -2,6 +2,9 @@
 #define EASY_UDP_HEADER
 
 #include <utility>
+#include <array>
+#include <string>
+#include <string_view>
 #include <boost/asio.hpp>
 
 class EasyUDP {

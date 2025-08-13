@@ -5,6 +5,9 @@ EasyUDP::EasyUDP(std::string_view host, std::string_view port)
 , socket_m{ context_m }
 {
     socket_m.open(boost::asio::ip::udp::v4());
+    
+    boost::asio::ip::udp::endpoint local_endpoint(boost::asio::ip::udp::v4(), std::stoi(std::string(port)));
+    socket_m.bind(local_endpoint);
 }
 
 void EasyUDP::sendData(std::string_view data) {
@@ -12,6 +15,7 @@ void EasyUDP::sendData(std::string_view data) {
 }
 
 std::string EasyUDP::receiveData() {
-    const auto bytesReceived{ socket_m.receive_from(boost::asio::buffer(receiverBuffer_m), receiverEndpoint_m) };
-    return std::string(receiverBuffer_m.cbegin(), bytesReceived);
+    boost::asio::ip::udp::endpoint sender_endpoint;
+    const auto bytesReceived{ socket_m.receive_from(boost::asio::buffer(receiverBuffer_m), sender_endpoint) };
+    return std::string(receiverBuffer_m.cbegin(), receiverBuffer_m.cbegin() + bytesReceived);
 }
