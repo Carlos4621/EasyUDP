@@ -6,16 +6,17 @@
 #include <string>
 #include <string_view>
 #include <boost/asio.hpp>
+#include "IOCommons.hpp"
 
-class EasyUDP {
+class EasyUDP : public IOCommons {
 public:
 
     EasyUDP(std::string_view host, std::string_view port);
 
-    void sendData(std::string_view data);
+    void sendData(std::string_view data) override;
 
     [[nodiscard]]
-    std::string receiveData();
+    std::string receiveData() override;
 
 private:
     static constexpr size_t Receiver_Buffer_Size{ 1024 };
