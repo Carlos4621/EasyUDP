@@ -12,6 +12,6 @@ void EasyUDP::sendData(std::string_view data) {
 }
 
 std::string EasyUDP::receiveData() {
-    socket_m.receive_from(boost::asio::buffer(receiverBuffer_m), receiverEndpoint_m);
-    return { receiverBuffer_m.cbegin(), receiverBuffer_m.cend() };
+    const auto bytesReceived{ socket_m.receive_from(boost::asio::buffer(receiverBuffer_m), receiverEndpoint_m) };
+    return std::string(receiverBuffer_m.cbegin(), bytesReceived);
 }
